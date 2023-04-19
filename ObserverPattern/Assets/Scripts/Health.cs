@@ -2,9 +2,9 @@
 {
     readonly int _maxHealth;
     int _currentHealth;
-    
-    public event System.Action<float,float> OnTookDamage;
-    public event System.Action<float,float> OnDying;
+
+    public event System.Action<float, float> OnTookDamage;
+    public event System.Action<float, float> OnDead;
 
     public Health(int maxHealth)
     {
@@ -16,13 +16,13 @@
     {
         _currentHealth -= damage;
 
-        if (_maxHealth <= 0)
+        if (_currentHealth > 0)
         {
-            OnDying?.Invoke(_currentHealth,_maxHealth);
+            OnTookDamage?.Invoke(_currentHealth, _maxHealth);
         }
         else
         {
-            OnTookDamage?.Invoke(_currentHealth,_maxHealth);
+            OnDead?.Invoke(_currentHealth, _maxHealth);
         }
     }
 }
